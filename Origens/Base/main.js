@@ -22,9 +22,9 @@ module.exports = class WendyClient extends Client {
     comando.forEach((arquivos) => {
       const cmd = new (require(arquivos))(this);
 
-      if (!cmd.name === null) return console.log('[comando error]'.bgBlack.bold.red, 'Nome indefinido no arquivo: ' + `${arquivos("/")[7]}`.cyan);
+      if (!cmd.base.name === null) return console.log('[comando error]'.bgBlack.bold.red, 'Nome indefinido no arquivo: ' + `${arquivos("/")[7]}`.cyan);
 
-      this.comandos.set(cmd.name, cmd);
+      this.comandos.set(cmd.base.name, cmd);
       this.comandosArray.push(cmd);
     });
 
