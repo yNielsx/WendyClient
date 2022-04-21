@@ -11,10 +11,12 @@ module.exports = class Comando {
     this.base = {
       name: options.name || null,
       description: options.description || 'Descrição indefinida.',
+      usage: options.usage || 'indefinido',
       category: options.category || 'Utilidades'
-    };
+    }
 
     this.conf = {
+      aliases: options.aliases || [],
       cooldown: options.cooldown || 1000,
       permission: options.permission || 'SEND_MESSAGES',
       allowDMS: options.allowDMS || false,
@@ -29,4 +31,8 @@ module.exports = class Comando {
       this.cooldown.delete(user);
     }, this.conf.cooldown);
   };
+
+  setMessages(message) {
+    this.message = message;
+  }
 }

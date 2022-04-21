@@ -10,6 +10,8 @@ module.exports = class WendyClient extends Client {
 
     this.comandos = new Collection();
     this.botões = new Collection();
+    this.aliases = new Collection();
+    this.comandosArray = [];
   }
 
   async login(token) {
@@ -18,27 +20,22 @@ module.exports = class WendyClient extends Client {
   }
 
   async loadComandos(comandoPath) {
-    const comando = await PGlob(process.cwd() + comandoPath + '**/*.js');
-    comando.forEach((arquivos) => {
-      const cmd = new (require(arquivos))(this);
-
-      if (!cmd.base.name === null) return console.log('[comando error]'.bgBlack.bold.red, 'Nome indefinido no arquivo: ' + `${arquivos("/")[7]}`.cyan);
-
-      this.comandos.set(cmd.base.name, cmd);
-      this.comandosArray.push(cmd);
-    });
+    const Command = await PGlob(process.cwd() + comandoPath + '*/*.js');
 
 
-    super.on('ready', async () => {
-      const server = this.guilds.cache.get('954416329652314204');
-      server.commands.set(this.comandosArray)
-    });
-    return this;
-  };
+    Command.map((files) => {
+      const cmd = new (require(files))(this);
+      if(!files) return;
+
+      this.comandos.set(cmd.base.name, cmd)    
+    cmd.conf.aliases.forEach(a => this.aliases.set(a, cmd.base.name))
+  });
+  return this
+};
 
   async loadEventos(eventoPath) {
     const evento = await PGlob(process.cwd() + eventoPath + '**/*.js');
-    evento.forEach((arquivos) => {
+    evento.map((arquivos) => {
       const evt = new (require(arquivos))(this);
 
       if (!evt.name) return console.log('[evento error]'.bgBlack.bold.red, 'Nome indefinido no arquivo: ' + `${arquivos("/")[7]}`.cyan);
