@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const glob = require('glob');
 const PGlob = promisify(glob);
 
+
 module.exports = class WendyClient extends Client {
   constructor(options) {
     super(options);
@@ -11,27 +12,25 @@ module.exports = class WendyClient extends Client {
     this.comandos = new Collection();
     this.botões = new Collection();
     this.aliases = new Collection();
-    this.comandosArray = [];
   }
 
   async login(token) {
-    return (await super.login(token));
-    console.log('Conectado com sucesso');
+    return (await super.login(token).then(() => console.log('[WendyClient]'.bgBlack.cyan, `O client foi inicializado com sucesso.`)))
   }
 
   async loadComandos(comandoPath) {
-    const Command = await PGlob(process.cwd() + comandoPath + '*/*.js');
+      const Command = await PGlob(process.cwd() + comandoPath + '*/*.js');
 
 
     Command.map((files) => {
       const cmd = new (require(files))(this);
-      if(!files) return;
+      if (!files) return;
 
-      this.comandos.set(cmd.base.name, cmd)    
-    cmd.conf.aliases.forEach(a => this.aliases.set(a, cmd.base.name))
-  });
-  return this
-};
+      this.comandos.set(cmd.base.name, cmd)
+      cmd.conf.aliases.forEach(a => this.aliases.set(a, cmd.base.name))
+    })
+    return this;
+  };
 
   async loadEventos(eventoPath) {
     const evento = await PGlob(process.cwd() + eventoPath + '**/*.js');
