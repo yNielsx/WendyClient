@@ -44,7 +44,7 @@ module.exports = class NomeComando extends Base {
 module.exports = class {
   constructor(client) {
     this.client = client;
-    this.name = 'ready'; // Nome do evento aqui
+    this.name = ''; // Nome do evento aqui
   }
 
   executar(//Nome do evento aqui tbm) {
