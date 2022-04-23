@@ -20,14 +20,15 @@ const Base = require('../../Base/comando');
 module.exports = class NomeComando extends Base {
   constructor(client) {
     super(client, {
-      name: "", // nome do comando
+      name: "", // Nome do comando
       description: "", // Desc do comando
-      usage: "", // como usar o comando
-      category: "", // categoria
+      usage: "", // Como usar o comando
+      category: "", // Categoria
 
-      aliases: [""], // aliases
-      cooldown: 1000, // cooldown para utilizar o cmd
-      permission: "SEND_MESSAGES" //permissões 
+      aliases: [""], // Aliases
+      cooldown: 1000, // Cooldown para utilizar o cmd
+      permission: "SEND_MESSAGES", // Permissões 
+      allowDMS: false // Permitir o comando em privado ou não.
     });
   }
   
