@@ -37,3 +37,17 @@ module.exports = class NomeComando extends Base {
   }
 } 
 ```
+
+```js
+// TEMPLATE EVENTO
+
+module.exports = class {
+  constructor(client) {
+    this.client = client;
+    this.name = 'ready'; // Nome do evento aqui
+  }
+
+  executar(//Nome do evento aqui tbm) {
+    // Seu código aqui
+  }
+}
