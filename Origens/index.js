@@ -1,5 +1,3 @@
-require('colors');
-
 const WendyClient = require('./Base/main');
 
 const client = new WendyClient({
