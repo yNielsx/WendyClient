@@ -2,7 +2,6 @@ const Base = require('../../Base/comando');
 
 module.exports = class Ping extends Base {
   constructor(client) {
-    // Initialise base command and pass data - all properties except name are optional
     super(client, {
       name: "ping",
       description: "Pings the bot.",
